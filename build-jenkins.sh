@@ -32,3 +32,5 @@
 
 # update the mlocate manifest
   sudo updatedb
+
+  exit 0
