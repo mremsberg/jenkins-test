@@ -33,4 +33,4 @@
 # update the mlocate manifest
   sudo updatedb
 
-# 20170115 test
+# 20170115 test01
