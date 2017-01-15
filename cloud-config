@@ -1,0 +1,21 @@
+#cloud-config
+output : { all : '| tee -a /var/log/cloud-init-output.log' }
+
+repo_update: true
+repo_upgrade: all
+
+packages:
+ - mlocate
+ - java-1.8.0-openjdk.x86_64
+ - wget.x86_64
+
+runcmd:
+ - iptables -I INPUT 4 -m state --state NEW -p tcp --dport 8080 -j ACCEPT
+ - /sbin/service iptables save
+ - /sbin/service iptables restart
+ - wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+ - rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+ - yum install -y jenkins
+ - chkconfig jenkins on
+ - service jenkins start
+ - updatedb
